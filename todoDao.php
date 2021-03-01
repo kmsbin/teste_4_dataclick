@@ -44,6 +44,7 @@ class TodoDao {
             ':desc' => $row['description'],
             ':priority' => $row['priority']   
         ));
+        return $this->dbConn->lastInsertId();
 
         echo $stmt->rowCount();
     }

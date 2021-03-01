@@ -25,20 +25,21 @@
             $isRunQuery = true;
             foreach ($row as $key => $value) {
                 if (!isset($data[$key]) || empty(($data[$key]))) {
+                    $isRunQuery = false; 
                     echo json_encode(array(
                         'status'=> 0,
                         'msg' => 'tarefa não cadastrada',
                     ));
-                    $isRunQuery = false; 
                     return; 
                 }
                 $row[$key] = $data[$key];
 
             }
             if ($isRunQuery) { 
-                $daoConn->create($row);
+                $id = $daoConn->create($row);
                 echo json_encode(array(
                     'status'=> 1,
+                    'lastId'=> $id,
                     'msg' => 'tarefa cadastrada',
                 ));
             } 
@@ -91,7 +92,5 @@
             
             break;
     }
-    // echo $daoConn->update(1, 'novo titulo', 'é esse é o novo titulo cara', 50);
-    // echo $daoConn->find(1)['title'];
-
+    
 ?>
