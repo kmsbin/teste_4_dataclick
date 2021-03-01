@@ -1,17 +1,25 @@
 <?php
 
+require_once('bootstrap.php');
 class TodoDao {
-    
+ 
+ // as duas linhas que carregam as variáveis do .env para variáveis de ambiente 
+   
     private $host = 'localhost';
     private $user = 'pimatheus';
     private $pass = 'onclass';
     private $name = 'todo_teste';
 
 
+    // private $host = $_ENV['DB_HOST'];
+    // private $user = $_ENV['DB_USER'];
+    // private $pass = $_ENV['DB_PASS'];
+    // private $name = $_ENV['DB_NAME'];
     private $dbConn;
     public function __construct() {
+        // echo  $_ENV['DB_HOST']."  ". $_ENV['DB_USER']."  " .$_ENV['DB_PASS'];
         try {
-            $this->dbConn = new PDO("pgsql:host={$this->host};dbname={$this->name}", $this->user, $this->pass);
+            $this->dbConn = new PDO("pgsql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']}", $_ENV['DB_USER'], $_ENV['DB_PASS']);
             $this->dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $err) {
             echo "Error ". $err; 
